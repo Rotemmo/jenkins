@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'NAME', defaultValue: 'World', description: 'Name to greet')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Run Script') {
+            steps {
+                sh 'scripts/hello.sh "$NAME" > output.txt'
+            }
+        }
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'output.txt', fingerprint: true
+            }
+        }
+    }
+    post {
+        always {
+            echo "Running on node: ${NODE_NAME}"
+        }
+    }
+}
