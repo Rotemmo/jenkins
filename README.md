@@ -10,7 +10,7 @@ cd jenkins)
     2.2 Run Jenkins Agent-
         docker run -d --name jenkins-agent --network jenkins-net -e JENKINS_URL=http://jenkins:8080 -e JENKINS_AGENT_NAME=linux-docker-1 -e JENKINS_SECRET=<SECRET_FROM_NODE> -e JENKINS_AGENT_WORKDIR=/home/jenkins/agent -v /var/run/docker.sock:/var/run/docker.sock -v jenkins-agent-data:/home/jenkins/agent jenkins/inbound-agent
         (JENKINS_SECRET- is in jenkins UI and in the appendix)
-3. Credentials Handling- i didnt use password or secret.
+3. Credentials Handling- password for my jenkins's user (1234) or secret.
 4. Screenshots+ 5. Extra Explanation -> are in the appendix PDF file.
 6. Answer- 
     6.1 docker start jenkins
