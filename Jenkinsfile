@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'linux-docker-extra' }  
     
     parameters {
         string(name: 'NAME', defaultValue: 'World', description: 'Name parameter for the hello script')
@@ -22,21 +22,14 @@ pipeline {
     //Run Script → execute
         stage('Run Script') {
             steps {
-                script {
-                    sh '''
-                        chmod +x scripts/hello.sh
-                        ./scripts/hello.sh "${NAME}" > output.txt
-                        echo "Script output:"
-                        cat output.txt
-                    '''
-                }
+                sh 'scripts/hello.sh "$NAME" > output.txt'
             }
         }
+
     //Archive → save script output
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: 'output.txt', fingerprint: true
-                echo "Artifacts archived successfully"
             }
         }
     }
